@@ -1,0 +1,1663 @@
+:root{
+
+/* COLORES CORPORATIVOS REALES */
+--bg-color:#f6f8fb;
+--text-color:#0f172a;
+
+--primary:#003366;
+--primary-light:#0057a3;
+--primary-dark:#001f3f;
+
+--accent:#ff7a00;
+--accent-soft:#ffb067;
+
+--white:#ffffff;
+--gray:#64748b;
+
+--header-bg:linear-gradient(90deg,#003366,#0057a3);
+--footer-bg:#001f3f;
+
+}
+
+/* ============================================================
+   RESET / BASE
+============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
+}
+
+body{
+  background:#f6f8fb;
+  color:#0f172a;
+  line-height:1.6;
+}
+
+
+/* ============================================================
+   SISTEMA SPA — CONTROL DE SECCIONES
+============================================================ */
+
+/* TODAS LAS SECCIONES OCULTAS POR DEFECTO */
+.seccion {
+  display: none !important;
+  padding: 80px 20px;
+  padding-top: 140px !important;
+}
+
+/* SOLO SE VE LA QUE EL SCRIPT ACTIVA */
+.seccion.activo {
+  display: block !important;
+}
+
+/* SECCIONES QUE USAN FLEX */
+#inicio.activo,
+#manos-seguras.activo {
+  display: flex !important;
+}
+
+#quienes-somos.activo {
+  display: flex !important;
+}
+/* ============================================================
+   HEADER — MENÚ SUPERIOR FIJO
+============================================================ */
+
+header{
+  background:linear-gradient(90deg,#003366,#0057a3);
+  padding:18px 50px;
+
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+  position:fixed;
+  width:100%;
+  top:0;
+  z-index:1000;
+}
+
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo img {
+  height: 75px;
+  border-radius: 12px;
+  background: white;
+  padding: 6px;
+}
+
+/* NAVEGACIÓN */
+nav ul {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--link-color);
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: var(--link-hover);
+}
+
+/* BOTÓN MENÚ (MÓVIL) */
+.menu-toggle {
+  display: none;
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* ACTIVAR MENÚ MÓVIL */
+#menuNav.active ul {
+  display: flex;
+  flex-direction: column;
+  background: var(--header-bg);
+  padding: 20px;
+}
+
+/* MODO OSCURO */
+.modo-toggle {
+  background: none;
+  border: 2px solid white;
+  color: white;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 820px) {
+  nav ul {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+/* ============================================================
+   HERO — SECCIÓN PRINCIPAL
+============================================================ */
+
+#inicio {
+  display: none;
+}
+
+#inicio.activo {
+  display: flex;
+}
+
+.hero {
+  margin-top: 100px;
+  width: 100%;
+  min-height: 100vh;
+  background: url('../img/atardecer.jpeg') center/cover no-repeat;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Capa oscura */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+}
+
+/* Contenedor texto */
+.hero-contenedor {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 20px;
+}
+
+.hero-contenedor h1 {
+  font-size: 3rem;
+  color: white;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.subtitulo-hero {
+  color: #e6e6e6;
+  margin: 20px 0;
+  font-size: 1.2rem;
+}
+
+/* Botones del hero */
+.btn-hero{
+  padding:16px 42px;
+  background:#ff7a00;
+  color:white;
+  border-radius:50px;
+  font-weight:800;
+  text-decoration:none;
+
+  box-shadow:
+  0 15px 35px rgba(255,122,0,.35);
+
+  transition:.25s;
+}
+
+.btn-hero:hover{
+  transform:translateY(-4px);
+}
+
+
+.btn-hero:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+}
+
+.btn-hero.secundario {
+  border: 3px solid white;
+  background: transparent;
+  color: white;
+}
+
+/* ============================================================
+   MANOS SEGURAS
+============================================================ */
+
+#manos-seguras {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#manos-seguras.activo {
+  display: flex;
+}
+
+.hero-card {
+  max-width: 750px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(6px);
+  padding: 50px 40px;
+  border-radius: 28px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.hero-tag {
+  color: #ff7a00;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.hero-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: #1c1c1c;
+  margin-bottom: 20px;
+}
+
+.hero-text {
+  max-width: 620px;
+  margin: 0 auto 35px auto;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* ============================================================
+   SECCIÓN EXPERTOS
+============================================================ */
+
+.seccion-expertos {
+  padding: 80px 20px;
+  background: var(--section-bg);
+}
+
+.contenido-expertos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.texto-expertos {
+  max-width: 500px;
+}
+
+.texto-expertos h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.texto-expertos p {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 16px;
+}
+
+.imagen-expertos img {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 0 200px 0 200px;
+}
+
+/* ============================================================
+   SECCIÓN BIENVENIDA
+============================================================ */
+
+.bienvenida-premium {
+  padding: 80px 20px;
+  background: linear-gradient(180deg, #fdfdfd, #f1f1f1);
+  text-align: center;
+}
+
+.bienvenida-box {
+  max-width: 750px;
+  margin: auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+}
+
+.bienvenida-box h2 {
+  font-size: 2.2rem;
+  font-weight: 900;
+}
+
+.resaltado {
+  color: var(--accent-color);
+}
+
+.bienvenida-desc {
+  font-size: 1.1rem;
+  color: #444;
+  margin: 10px 0 20px 0;
+}
+
+.feature-row {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.feature-item {
+  text-align: center;
+}
+
+.feature-item i {
+  font-size: 2rem;
+  color: var(--accent-color);
+  margin-bottom: 8px;
+}
+
+.feature-item p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #444;
+}
+
+/* ============================================================
+   COTIZACIÓN — DISEÑO FINAL PREMIUM (ESTILO C)
+============================================================ */
+
+.cotizacion-final {
+  background: #1e2a6b;
+  padding: 120px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
+/* GRID 2 COLUMNAS */
+.cotizacion-grid {
+  width: 100%;
+  max-width: 1300px;
+  display: grid;
+  grid-template-columns: 480px 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* ============================================================
+   CÍRCULO DOBLE — DISEÑO DEL EJEMPLO (la referencia)
+============================================================ */
+
+/* CONTENEDOR */
+.circle-wrapper {
+  position: relative;
+  width: 480px;
+  height: 480px;
+}
+
+/* CÍRCULO GRANDE DETRÁS */
+.circle-bg {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+  top: -40px;
+  left: -40px;
+}
+
+/* CÍRCULO DELANTERO BLANCO */
+.circle-img {
+  position: absolute;
+  width: 430px;
+  height: 430px;
+  border-radius: 50%;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+}
+
+/* IMAGEN INTERNA — AJUSTADA COMO EL EJEMPLO */
+.circle-img img {
+  width: 125%;
+  height: auto;
+  object-fit: cover;
+
+  /* movimiento exacto estilo ejemplo */
+  transform: translate(-12%, 6%);
+}
+
+/* ============================================================
+   COLUMNA DERECHA — TEXTO + PASOS + FORMULARIO
+============================================================ */
+
+.cot-right {
+  color: white;
+  padding-right: 20px;
+}
+
+.cot-title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.cot-desc {
+  font-size: 1rem;
+  color: #dcdcdc;
+  margin-bottom: 25px;
+}
+
+/* ============================================================
+   PASOS HORIZONTALES PREMIUM
+============================================================ */
+
+.cot-steps-horizontal {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 45px;
+  position: relative;
+}
+
+/* Línea conectando los pasos */
+.cot-steps-horizontal::before {
+  content: "";
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.cot-steps-horizontal li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  width: 100%;
+}
+
+.cot-steps-horizontal li span {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: white;
+  color: #1e2a6b;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+  margin-bottom: 10px;
+}
+
+.cot-steps-horizontal li p {
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  max-width: 150px;
+}
+
+/* ============================================================
+   BOTÓN "COMENZAR"
+============================================================ */
+
+.cot-btn {
+  background: var(--accent-color);
+  padding: 12px 30px;
+  border-radius: 30px;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 35px;
+  transition: 0.3s;
+}
+
+.cot-btn:hover {
+  background: #e66900;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   FORMULARIO
+============================================================ */
+
+.cot-form-box {
+  width: 100%;
+  max-width: 600px;
+}
+
+.cot-form-box form {
+  background: white;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cot-form-box label {
+  font-weight: 700;
+  color: black;
+}
+
+.cot-form-box input,
+.cot-form-box textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  font-size: 1rem;
+}
+
+.cot-form-box textarea {
+  height: 130px;
+  resize: none;
+}
+
+.cot-form-box button {
+  background: var(--accent-color);
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cot-form-box button:hover {
+  background: #e66900;
+  transform: translateY(-2px);
+}
+/* ============================================================
+   RESPONSIVE FINAL — COTIZACIÓN, SECCIONES Y LAYOUT
+============================================================ */
+
+/* 🎯 Cambios generales para pantallas medianas */
+@media (max-width: 1100px) {
+
+  /* Reducir tamaño del círculo completo */
+  .circle-wrapper {
+    width: 400px;
+    height: 400px;
+  }
+
+  .circle-bg {
+    width: 440px;
+    height: 440px;
+    top: -35px;
+    left: -35px;
+  }
+
+  .circle-img {
+    width: 360px;
+    height: 360px;
+  }
+
+  .circle-img img {
+    transform: translate(-10%, 5%) scale(1.0);
+  }
+}
+
+/* 🎯 Versión tablet / celular ancho medio */
+@media (max-width: 900px) {
+
+  /* QUITAMOS DOS COLUMNAS → UNA SOLA COLUMNA */
+  .cotizacion-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 40px;
+  }
+
+  /* Centrar la imagen */
+  .circle-wrapper {
+    margin: 0 auto;
+  }
+
+  /* Ajustes del círculo en móviles */
+  .circle-wrapper {
+    width: 340px;
+    height: 340px;
+  }
+
+  .circle-bg {
+    width: 380px;
+    height: 380px;
+    top: -28px;
+    left: -28px;
+  }
+
+  .circle-img {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* Imagen más centrada en móvil */
+  .circle-img img {
+    transform: translate(-10%, 10%) scale(1.05);
+  }
+
+  /* Pasos → más compactos */
+  .cot-steps-horizontal {
+    gap: 18px;
+  }
+
+  .cot-steps-horizontal li p {
+    font-size: 0.95rem;
+  }
+
+  /* Texto de cotización */
+  .cot-right {
+    padding-right: 0;
+  }
+}
+
+/* 🎯 Versión móvil pequeña */
+@media (max-width: 650px) {
+
+  /* Pasos de horizontales → VERTICALES */
+  .cot-steps-horizontal {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Ocultar la línea horizontal */
+  .cot-steps-horizontal::before {
+    display: none;
+  }
+
+  .cot-steps-horizontal li span {
+    margin-bottom: 6px;
+  }
+
+  /* Círculo más pequeño aún */
+  .circle-wrapper {
+    width: 300px;
+    height: 300px;
+  }
+
+  .circle-bg {
+    width: 330px;
+    height: 330px;
+    top: -22px;
+    left: -22px;
+  }
+
+  .circle-img {
+    width: 260px;
+    height: 260px;
+  }
+
+  .circle-img img {
+    transform: translate(-8%, 12%) scale(1.1);
+  }
+}
+
+/* 🎯 Ultra pequeño (menos de 450px) */
+@media (max-width: 450px) {
+
+  .circle-wrapper {
+    width: 250px;
+    height: 250px;
+  }
+
+  .circle-bg {
+    width: 280px;
+    height: 280px;
+    top: -18px;
+    left: -18px;
+  }
+
+  .circle-img {
+    width: 220px;
+    height: 220px;
+  }
+
+  .circle-img img {
+    transform: translate(-5%, 14%) scale(1.15);
+  }
+
+  /* Texto más compacto */
+  .cot-title {
+    font-size: 1.9rem;
+  }
+
+  .cot-desc {
+    font-size: 0.95rem;
+  }
+}
+/* ============================================================
+   GALERÍA CURVA
+============================================================ */
+
+.galeria-curva {
+  width: 100%;
+  max-width: 1300px;
+  margin: 40px auto;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+
+.galeria-curva .g-img {
+  width: 210px;
+  height: 260px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+  transition: 0.35s ease;
+}
+
+.galeria-curva .g-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.galeria-curva .g-img:hover {
+  transform: translateY(-12px) scale(1.05);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.28);
+}
+
+/* Inclinación estética de las imágenes */
+.galeria-curva .g-img:nth-child(1) { transform: rotate(-6deg) translateY(10px); }
+.galeria-curva .g-img:nth-child(2) { transform: rotate(-3deg) translateY(5px); }
+.galeria-curva .g-img:nth-child(3) { transform: rotate(0deg) translateY(0); }
+.galeria-curva .g-img:nth-child(4) { transform: rotate(3deg) translateY(5px); }
+.galeria-curva .g-img:nth-child(5) { transform: rotate(6deg) translateY(10px); }
+
+@media(max-width: 700px) {
+  .galeria-curva .g-img {
+    width: 45%;
+    height: 200px;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   CLIENTES — CINTILLO
+============================================================ */
+
+.clientes-cintillo {
+  width: 100%;
+  padding: 20px 0 50px;
+  text-align: center;
+}
+
+.titulo-clientes {
+  font-size: 1.9rem;
+  font-weight: 900;
+  margin: 20px 0;
+  color: var(--accent-color);
+}
+
+.cintillo-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.cintillo-logos img {
+  max-width: 150px;
+  opacity: 0.9;
+  transition: 0.3s ease;
+}
+
+.cintillo-logos img:hover {
+  transform: scale(1.07);
+  opacity: 1;
+}
+
+/* ============================================================
+   SERVICIOS — TARJETAS ROTADAS
+============================================================ */
+
+.servicios-especiales {
+  width: 100%;
+  min-height: 100vh;
+  padding: 140px 40px 120px;
+  background: url('../img/servicios.png') center/cover no-repeat fixed;
+  position: relative;
+  text-align: center;
+}
+
+.servicios-especiales::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+.servicios-especiales * {
+  position: relative;
+  z-index: 2;
+}
+
+.titulo-servicios {
+  color: white;
+  font-size: 2.7rem;
+  margin-bottom: 10px;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.7);
+}
+
+.subtexto-servicios {
+  color: #f2f2f2;
+  font-size: 1rem;
+  margin-bottom: 25px;
+}
+
+.intro-servicios {
+  max-width: 900px;
+  margin: 0 auto 50px auto;
+  color: #f8f8f8;
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+
+.contenedor-servicios-especiales {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.tarjeta-servicio {
+  width: 280px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  padding-bottom: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  transform: rotate(-6deg);
+  transition: 0.3s ease;
+}
+
+.tarjeta-servicio:hover {
+  transform: rotate(0deg) scale(1.07);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+}
+
+.tarjeta-servicio img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+.tarjeta-servicio h3 {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.tarjeta-servicio p {
+  font-size: 0.9rem;
+  padding: 0 12px;
+}
+
+/* ============================================================
+   QUIÉNES SOMOS — FONDO + TARJETAS
+============================================================ */
+
+.seccion-fondo-morado {
+  width: 100%;
+  padding: 120px 0;
+  background: url('../img/fondo.jpg') center/cover no-repeat fixed;
+  display: none;
+  justify-content: center;
+}
+
+.seccion-fondo-morado.activo {
+  display: flex;
+}
+
+/* Caja negra */
+.caja-negra {
+  width: 90%;
+  max-width: 1400px;
+  min-height: 820px;
+  margin: auto;
+  padding: 80px;
+  background: #0b0b0b;
+  border-radius: 28px;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.85);
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+}
+
+/* Historia */
+.historia-card {
+  display: flex;
+  justify-content: center;
+  gap: 70px;
+}
+
+.historia-texto {
+  color: #eaeaea;
+  max-width: 620px;
+}
+
+.historia-texto h2 {
+  font-size: 2.7rem;
+  color: #f0c18a;
+  margin-bottom: 20px;
+}
+
+.historia-imagen {
+  width: 360px;
+  height: 480px;
+  border-radius: 200px 200px 20px 20px;
+  overflow: hidden;
+}
+
+.historia-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Esencia */
+.esencia-section {
+  text-align: center;
+  color: white;
+}
+
+.esencia-contenedor {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.arco-box {
+  width: 350px;
+  background: #111;
+  border-radius: 180px 180px 20px 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+}
+
+.arco-top {
+  height: 230px;
+  overflow: hidden;
+}
+
+.arco-top img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.arco-content {
+  padding: 25px;
+}
+
+.arco-content h3 {
+  font-size: 1.7rem;
+  color: #e9c89b;
+  margin-bottom: 10px;
+}
+
+/* Política */
+.politica-contenedor {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+.politica-imagen {
+  width: 360px;
+  height: 360px;
+  position: relative;
+}
+
+.politica-imagen .img-principal {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.politica-imagen .img-secundaria {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  left: -60px;
+  bottom: -30px;
+}
+
+/* ============================================================
+   CONTACTO
+============================================================ */
+
+.contacto-premium {
+  background: linear-gradient(120deg, #0c0c0c, #141414);
+  padding: 120px 40px;
+}
+
+.contacto-layout {
+  max-width: 1300px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.contacto-info-premium {
+  color: #eaeaea;
+}
+
+.contacto-titulo {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--accent-color);
+  margin-bottom: 15px;
+}
+
+.contacto-desc {
+  color: #ccc;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.contacto-imagen-premium img {
+  width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+
+footer {
+  background: var(--footer-bg);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+/* ============================================================
+   CÍRCULO PREMIUM — IGUAL QUE EL EJEMPLO ORIGINAL
+============================================================ */
+
+.circle-wrapper {
+    position: relative;
+    width: 680px;         /* tamaño total */
+    height: 680px;
+    margin-left: -200px;  /* mover a la izquierda */
+    margin-top: 40px;
+}
+
+/* Círculo grande azul difuso */
+.circle-back {
+    position: absolute;
+    width: 680px;
+    height: 680px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    top: 0;
+    left: 0;
+    z-index: 1;
+    filter: blur(1px);
+}
+
+/* Círculo blanco intermedio */
+.circle-white {
+    position: absolute;
+    width: 540px;
+    height: 540px;
+    border-radius: 50%;
+    background: white;
+    top: 70px;
+    left: 70px;
+    z-index: 2;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+}
+
+/* Círculo donde va la imagen recortada */
+.circle-img {
+    position: absolute;
+    width: 470px;
+    height: 470px;
+    border-radius: 50%;
+    overflow: hidden;
+    top: 105px;
+    left: 105px;
+    z-index: 3;
+}
+
+/* Imagen interna (ajuste PERFECTO del camión) */
+.circle-img img {
+    width: 130%;
+    height: 90% ;
+    object-fit: cover;
+
+    /* mueve la imagen hacia la izquierda para centrar el camión */
+    object-position: -90% center;
+}
+/* ===========================================
+   FORMULARIO 2 COLUMNAS (MISMO ESTILO BLANCO)
+=========================================== */
+
+.clean-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.clean-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.clean-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.clean-form input,
+.clean-form textarea {
+    background: white;                 /* se mantiene tu estilo */
+    border: 2px solid #ddd;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 1rem;
+}
+
+.clean-form textarea {
+    height: 140px;
+    resize: none;
+}
+
+/* El botón sigue siendo el tuyo (naranja) */
+.clean-form .cot-btn {
+    width: 100%;
+}
+.cotizacion-imagen {
+    width: 420px;   /* antes seguro estaba en 300–350px → ahora más grande */
+    height: 420px;
+    border-radius: 50%;
+    padding: 18px;  /* controla el grosor del círculo blanco */
+    background: white;
+    box-shadow: 0 0 35px rgba(0,0,0,0.25);
+}
+
+.cotizacion-imagen img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.cotizacion-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 70px; /* Aumenta el espacio entre la imagen y el formulario */
+    padding-left: 60px; /* Mueve todo un poco más a la derecha */
+}
+/* Corregir color de texto en la sección Política */
+#politica .politica-texto,
+.politica-premium .politica-texto {
+    color: #f2f2f2 !important;
+}
+
+#politica .politica-parrafo {
+    color: #e6e6e6 !important;
+}
+
+#politica .politica-titulo {
+    color: #ff9d33 !important; /* o tu color dorado si prefieres */
+}
+/* Alinear política en 2 columnas correctamente */
+.politica-premium {
+    display: flex !important;
+    justify-content: center !important;
+    padding: 120px 40px !important;
+}
+
+.politica-contenedor {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 60px !important;
+    max-width: 1200px;
+    margin: auto;
+}
+/* --- CONTENEDOR DE POLÍTICA --- */
+.politica-premium {
+    padding: 120px 40px !important;
+    background: #0c0c0c !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.politica-contenedor {
+    max-width: 1200px !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 60px !important;
+}
+
+/* --- AQUI ESTA EL PROBLEMA ACTUALMENTE --- */
+/* Tu HTML usa .politica-imagen.doble-imagen */
+
+.politica-imagen.doble-imagen {
+    position: relative !important;
+    width: 420px !important;
+    height: 420px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    background: none !important;
+    padding: 0 !important;
+}
+
+/* Imagen principal correcta */
+.politica-imagen.doble-imagen .img-principal {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+}
+
+/* Imagen pequeña decorativa */
+.politica-imagen.doble-imagen .img-secundaria {
+    position: absolute !important;
+    width: 160px !important;
+    height: 160px !important;
+    border-radius: 50% !important;
+    bottom: -20px !important;
+    left: -20px !important;
+    object-fit: cover !important;
+    border: 5px solid #0c0c0c !important;
+    background: #0c0c0c !important;
+}
+
+/* TEXTO */
+.politica-texto {
+    max-width: 550px !important;
+    color: #f2f2f2 !important;
+}
+
+.politica-titulo {
+    font-size: 2.6rem !important;
+    font-weight: 900 !important;
+    color: #ff9d33 !important;
+    margin-bottom: 20px !important;
+}
+/* CONTENEDOR PRINCIPAL AJUSTADO */
+.politica-contenedor {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 40px !important; /* ← ANTES TENÍAS 80–100 */
+    max-width: 1100px !important;
+    margin: auto !important;
+}
+
+/* TAMAÑO IDEAL DE LAS IMÁGENES */
+.politica-imagen.doble-imagen {
+    width: 360px !important;   /* ← Más razonable, no gigante */
+    height: 360px !important;
+}
+
+.politica-imagen.doble-imagen .img-secundaria {
+    width: 140px !important;
+    height: 140px !important;
+    bottom: -10px !important;
+    left: -10px !important;
+}
+
+/* TEXTO MÁS CERCA */
+.politica-texto {
+    max-width: 500px !important;
+    padding-left: 0 !important; /* ← MUY IMPORTANTE */
+}
+/* ========================
+   SECCIÓN ABOUT (MANOS SEGURAS)
+======================== */
+.about-section {
+    background: white;
+    padding: 120px 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.about-contenedor {
+    max-width: 1300px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+/* IMÁGENES LADO IZQUIERDO */
+.about-imagenes {
+    position: relative;
+    width: 50%;
+}
+
+.img-card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+
+.img-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Imagen grande */
+.img-card.grande {
+    width: 350px;
+    height: 260px;
+    transform: rotate(-4deg);
+}
+
+/* Imagen pequeña superpuesta */
+.img-card.chica {
+    width: 260px;
+    height: 180px;
+    position: absolute;
+    bottom: -40px;
+    left: 180px;
+    transform: rotate(3deg);
+}
+
+/* TEXTO DERECHA */
+.about-texto {
+    width: 50%;
+}
+
+.about-tag {
+    color: #ff7b00;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.about-titulo {
+    font-size: 2.6rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+.about-parrafo {
+    color: #444;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.about-boton {
+    display: inline-block;
+    background: #ff7b00;
+    padding: 14px 34px;
+    border-radius: 30px;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    transition: .3s;
+}
+
+.about-boton:hover {
+    background: #e66b00;
+    transform: translateY(-3px);
+}
+/* ===============================
+   TARJETAS CON CORTE DIAGONAL
+================================*/
+.angled-images {
+    position: relative;
+    width: 380px;
+    height: 420px;
+}
+
+.angled-card {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    border-radius: 14px;
+    position: absolute;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+}
+
+/* Imagen superior */
+.angled-card.top-img {
+    top: 0;
+    transform: skewY(-5deg);
+}
+
+/* Imagen inferior */
+.angled-card.bottom-img {
+    bottom: 0;
+    transform: skewY(-5deg);
+}
+
+/* Enderezamos la foto dentro del recorte */
+.angled-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: skewY(5deg);
+}
+/* CONTENEDOR */
+.angled-wrapper {
+    position: relative;
+    width: 340px;
+    height: 450px;
+}
+
+/* TARJETAS INDEPENDIENTES */
+.angled-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+    position: absolute;
+}
+
+/* POSICIONES */
+.angled-image.top-img {
+    top: 0;
+    transform: rotate(-4deg);
+}
+
+.angled-image.bottom-img {
+    bottom: 0;
+    transform: rotate(4deg);
+}
+
+/* CORTE DIAGONAL REAL */
+.angled-image img {
+    width: 120%;
+    height: 120%;
+    object-fit: cover;
+    transform: translate(-5%, -5%) skewY(-6deg);
+}
+/* CONTENEDOR */
+.diagonal-cards {
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+/* TARJETAS BASE */
+.diagonal-cards .card {
+    width: 100%;
+    height: 220px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+}
+
+/* IMAGEN */
+.diagonal-cards .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* RECORTE DIAGONAL REAL */
+.card1 {
+    clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+}
+
+.card2 {
+    clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+}
+/* ==========================
+   TARJETAS DIAGONALES TPP
+========================== */
+
+.tpp-diagonal-images {
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+/* TARJETAS INDIVIDUALES */
+.tpp-card {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 20px 30px rgba(0,0,0,0.22);
+    position: relative;
+}
+
+/* IMAGEN */
+.tpp-card img {
+    width: 120%;
+    height: 120%;
+    object-fit: cover;
+    transform: translate(-5%, -5%);
+}
+
+/* TARJETA SUPERIOR */
+.tpp-top {
+    clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+}
+
+/* TARJETA INFERIOR */
+.tpp-bottom {
+    clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
+}
+/* ===== FIX HEADER / MENU (PREMIUM) ===== */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 20px;
+}
+
+header .texto-logo h1,
+header .texto-logo p{
+  color:#fff;
+}
+
+header nav a{
+  color:#fff !important;
+  font-weight:700;
+  text-decoration:none;
+  padding:10px 12px;
+  border-radius:12px;
+}
+
+header nav a:hover{
+  background: rgba(255,255,255,.12);
+}
+
+/* Por si se está rompiendo en pantallas chicas */
+header nav ul{
+  display:flex;
+  gap:18px;
+  list-style:none;
+  flex-wrap:wrap;
+  align-items:center;
+}
+/* ===== BOTÓN PREMIUM EN CONTACTO ===== */
+#contacto .btn-hero{
+  background: linear-gradient(90deg, #ff7a00, #ffb067) !important;
+  color: #fff !important;
+
+  padding: 16px 44px !important;
+  border-radius: 999px !important;
+
+  font-weight: 900 !important;
+  letter-spacing: .3px;
+
+  border: 1px solid rgba(255,255,255,.18) !important;
+
+  box-shadow:
+    0 18px 40px rgba(255,122,0,.35),
+    0 10px 26px rgba(0,0,0,.35) !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+
+  text-decoration: none !important;
+  transition: .25s ease !important;
+}
+
+#contacto .btn-hero:hover{
+  transform: translateY(-4px) !important;
+  filter: saturate(1.05) !important;
+  box-shadow:
+    0 24px 55px rgba(255,122,0,.45),
+    0 18px 40px rgba(0,0,0,.45) !important;
+}
