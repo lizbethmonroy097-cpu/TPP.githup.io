@@ -7,6 +7,13 @@
   <meta name="description" content="Transportes Pérez Pérez (TPP) ofrece transporte confiable, seguro y puntual de materiales a granel y carga seca en todo México.">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    emailjs.init("TU_PUBLIC_KEY");
+  });
+</script>
+
 </head>
 
 <body>
@@ -319,34 +326,34 @@
             </ul>
             <!-- FORMULARIO -->
             <form id="formCotizacion" class="form-two-cols clean-form">
-
+<input type="text" name="empresa" style="display:none">
     <div class="form-row">
         <div class="form-group">
             <label>Nombre</label>
-            <input type="text" required>
+            <input type="text" name= "nombre" required>
         </div>
 
         <div class="form-group">
             <label>Correo</label>
-            <input type="email" required>
+            <input type="email" name="correo" required>
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group">
             <label>Origen</label>
-            <input type="text" required>
+            <input type="text" name="origen" required>
         </div>
 
         <div class="form-group">
             <label>Destino</label>
-            <input type="text" required>
+            <input type="text" name="destino" required>
         </div>
     </div>
 
     <div class="form-group">
         <label>Detalles</label>
-        <textarea required></textarea>
+        <textarea name="detalles" required></textarea>
     </div>
 
     <button type="submit" class="cot-btn">Enviar Solicitud</button>
