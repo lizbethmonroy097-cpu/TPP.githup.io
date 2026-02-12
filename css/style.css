@@ -1757,4 +1757,69 @@ nav ul{
 }
 
 }
+/* ============================
+============================ */
+
+html, body { overflow-x: hidden !important; }
+
+/* --- MENÚ: forzar oculto en móvil, solo abrir con .active --- */
+@media (max-width: 820px) {
+  header nav ul { 
+    display: none !important; 
+  }
+  #menuNav.active ul { 
+    display: flex !important; 
+    flex-direction: column !important;
+  }
+}
+
+/* --- COTIZACIÓN: forzar 1 columna en móvil y quitar anchos gigantes --- */
+@media (max-width: 900px) {
+
+  /* tu CSS al final pone .cotizacion-grid en flex, aquí lo corregimos */
+  #cotizacion .cotizacion-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+    padding-left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* quitar el desplazamiento que rompe el layout */
+  #cotizacion .circle-wrapper {
+    margin: 0 auto !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+
+    width: 280px !important;
+    height: 280px !important;
+  }
+
+  /* escalar los 3 círculos */
+  #cotizacion .circle-back {
+    width: 280px !important;
+    height: 280px !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+
+  #cotizacion .circle-white {
+    width: 220px !important;
+    height: 220px !important;
+    top: 30px !important;
+    left: 30px !important;
+  }
+
+  #cotizacion .circle-img {
+    width: 190px !important;
+    height: 190px !important;
+    top: 45px !important;
+    left: 45px !important;
+  }
+
+  /* el formulario en 1 columna */
+  #cotizacion .clean-form .form-row {
+    grid-template-columns: 1fr !important;
+  }
+}
 
