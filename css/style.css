@@ -1661,3 +1661,100 @@ header nav ul{
     0 24px 55px rgba(255,122,0,.45),
     0 18px 40px rgba(0,0,0,.45) !important;
 }
+/* ===== FIX MOVIL GLOBAL ===== */
+
+html, body{
+  overflow-x:hidden;
+}
+
+/* Evita que TODO se salga */
+*{
+  max-width:100%;
+}
+
+/* CONTENEDORES GRANDES */
+.contenido-expertos,
+.about-contenedor,
+.cotizacion-grid,
+.contacto-layout,
+.historia-card,
+.politica-contenedor{
+  width:100%;
+  max-width:1200px;
+  margin:auto;
+}
+
+/* ===== HEADER MOVIL ===== */
+@media(max-width:768px){
+
+header{
+  padding:14px 20px;
+}
+
+.logo img{
+  height:55px;
+}
+
+nav ul{
+  gap:10px;
+}
+
+/* HERO TEXTO */
+.hero-contenedor h1{
+  font-size:2rem;
+}
+
+.subtitulo-hero{
+  font-size:.95rem;
+}
+
+/* BOTONES */
+.btn-hero{
+  padding:12px 26px;
+  font-size:.9rem;
+}
+
+/* FORMULARIOS A UNA COLUMNA */
+.form-row{
+  grid-template-columns:1fr !important;
+}
+
+/* COTIZACION */
+.cotizacion-grid{
+  grid-template-columns:1fr !important;
+  gap:40px;
+}
+
+/* CIRCULO NO GIGANTE */
+.circle-wrapper{
+  margin:auto;
+  width:280px;
+  height:280px;
+}
+
+/* IMAGENES */
+.imagen-expertos img{
+  width:100%;
+  height:auto;
+}
+
+}
+
+/* ===== ULTRA MOVIL ===== */
+
+@media(max-width:480px){
+
+.hero-contenedor h1{
+  font-size:1.6rem;
+}
+
+.about-titulo{
+  font-size:1.8rem;
+}
+
+.contacto-titulo{
+  font-size:2rem;
+}
+
+}
+
