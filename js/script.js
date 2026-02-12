@@ -108,9 +108,33 @@ links.forEach(link => {
 const form = document.getElementById("formCotizacion");
 
 if (form) {
-  form.addEventListener("submit", e => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    alert("Tu solicitud ha sido enviada correctamente.");
-    form.reset();
+
+    // Anti-bots (honeypot)
+    const hp = form.querySelector('input[name="empresa"]');
+    if (hp && hp.value.trim() !== "") return;
+
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = "Enviando...";
+
+    try {
+      await emailjs.sendForm(
+        "service_cmb2udt",
+        "template_m41zuk5",
+        form
+      );
+
+      alert("✅ Tu solicitud fue enviada. En breve te contactaremos.");
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      alert("❌ No se pudo enviar. Intenta de nuevo o contáctanos por teléfono.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalText;
+    }
   });
 }
