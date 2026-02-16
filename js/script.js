@@ -93,6 +93,17 @@ links.forEach(link => {
         ocultarTodo();
         activar("contacto");
         break;
+
+      case "login":
+        ocultarTodo();
+        activar("login");
+        break;
+
+      case "panel":
+        ocultarTodo();
+        activar("panel");
+        break;
+
     }
 
     /* Cerrar menú móvil */
@@ -137,4 +148,79 @@ if (form) {
       btn.textContent = originalText;
     }
   });
+}
+
+// ===== SISTEMA LOGIN TPP =====
+
+// Registro
+document.getElementById("registroForm")?.addEventListener("submit", e => {
+  e.preventDefault();
+
+  let usuario = {
+    nombre: regNombre.value,
+    correo: regCorreo.value,
+    pass: regPass.value
+  };
+
+  localStorage.setItem("tpp_user", JSON.stringify(usuario));
+  alert("Usuario creado correctamente");
+});
+
+// Login
+document.getElementById("loginForm")?.addEventListener("submit", e => {
+  e.preventDefault();
+
+  let user = JSON.parse(localStorage.getItem("tpp_user"));
+
+  if (!user) {
+    alert("No existe el usuario");
+    return;
+  }
+
+  if (user.correo === loginCorreo.value && user.pass === loginPass.value) {
+    sessionStorage.setItem("tpp_session", "ok");
+    mostrarPanel();
+  } else {
+    alert("Credenciales incorrectas");
+  }
+});
+
+// Mostrar panel
+function mostrarPanel() {
+  ocultarTodo();
+  activar("panel");
+  cargarViajes();
+}
+
+
+// Logout
+function logout() {
+  sessionStorage.clear();
+  location.reload();
+}
+
+// Cargar viajes demo
+function cargarViajes() {
+  let viajesDemo = [
+    { origen: "Toluca", destino: "Monterrey", estatus: "En tránsito", fecha: "2025-02-10" },
+    { origen: "CDMX", destino: "Querétaro", estatus: "Entregado", fecha: "2025-02-12" }
+  ];
+
+  let tabla = document.getElementById("tablaViajes");
+
+  viajesDemo.forEach(v => {
+    tabla.innerHTML += `
+      <tr>
+        <td>${v.origen}</td>
+        <td>${v.destino}</td>
+        <td>${v.estatus}</td>
+        <td>${v.fecha}</td>
+      </tr>
+    `;
+  });
+}
+
+// Sesión activa
+if (sessionStorage.getItem("tpp_session") === "ok") {
+  mostrarPanel();
 }
