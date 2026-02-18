@@ -104,6 +104,7 @@ links.forEach(link => {
         activar("panel");
         break;
 
+
     }
 
     /* Cerrar menú móvil */
@@ -153,44 +154,90 @@ if (form) {
 // ===== SISTEMA LOGIN TPP =====
 
 // Registro
-document.getElementById("registroForm")?.addEventListener("submit", e => {
+document.getElementById("registroForm")?.addEventListener("submit", async e => {
   e.preventDefault();
 
-  let usuario = {
+  const datos = {
     nombre: regNombre.value,
     correo: regCorreo.value,
     pass: regPass.value
   };
 
-  localStorage.setItem("tpp_user", JSON.stringify(usuario));
-  alert("Usuario creado correctamente");
+  const res = await fetch("api/registro.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(datos)
+  });
+
+  const json = await res.json();
+
+  if (json.ok) {
+    alert("Registro exitoso. Tu ID de cliente es: " + json.cliente_id);
+    ocultarTodo();
+    activar("login");
+  } else {
+    alert(json.error);
+  }
 });
 
+
 // Login
-document.getElementById("loginForm")?.addEventListener("submit", e => {
-  e.preventDefault();
+async function loginReal(correo, password) {
 
-  let user = JSON.parse(localStorage.getItem("tpp_user"));
+  let res = await fetch("api/login.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ correo, password })
+  });
 
-  if (!user) {
-    alert("No existe el usuario");
-    return;
-  }
+  let data = await res.json();
 
-  if (user.correo === loginCorreo.value && user.pass === loginPass.value) {
-    sessionStorage.setItem("tpp_session", "ok");
-    mostrarPanel();
+  if (data.ok) {
+    sessionStorage.setItem("tpp_user", JSON.stringify(data));
+    abrirPanel(data);
   } else {
     alert("Credenciales incorrectas");
   }
+}
+loginForm.addEventListener("submit", e => {
+  e.preventDefault();
+  loginReal(loginCorreo.value, loginPass.value);
 });
 
+
 // Mostrar panel
-function mostrarPanel() {
+function abrirPanel(user) {
+
   ocultarTodo();
   activar("panel");
-  cargarViajes();
+
+  panelTitulo.textContent = "Panel " + user.rol.toUpperCase();
+
+  if (user.rol === "admin") {
+    panelMenu.innerHTML = `
+      <button onclick="verViajesAdmin()">Viajes</button>
+      <button onclick="crearViajeForm()">Crear viaje</button>
+      <button onclick="logout()">Salir</button>
+    `;
+    verViajesAdmin();
+  }
+
+  if (user.rol === "operador") {
+    panelMenu.innerHTML = `
+      <button onclick="verViajesOperador()">Mis viajes</button>
+      <button onclick="logout()">Salir</button>
+    `;
+  }
+
+  if (user.rol === "cliente") {
+    panelMenu.innerHTML = `
+      <button onclick="verMisViajes()">Mis viajes</button>
+      <button onclick="logout()">Salir</button>
+    `;
+    verMisViajes();
+  }
 }
+
 
 
 // Logout
@@ -200,27 +247,155 @@ function logout() {
 }
 
 // Cargar viajes demo
-function cargarViajes() {
-  let viajesDemo = [
-    { origen: "Toluca", destino: "Monterrey", estatus: "En tránsito", fecha: "2025-02-10" },
-    { origen: "CDMX", destino: "Querétaro", estatus: "Entregado", fecha: "2025-02-12" }
-  ];
+async function verViajesAdmin() {
 
-  let tabla = document.getElementById("tablaViajes");
+  let res = await fetch("api/admin_viajes.php");
+  let data = await res.json();
 
-  viajesDemo.forEach(v => {
-    tabla.innerHTML += `
-      <tr>
-        <td>${v.origen}</td>
-        <td>${v.destino}</td>
-        <td>${v.estatus}</td>
-        <td>${v.fecha}</td>
-      </tr>
-    `;
+  let html = `<table>
+  <tr><th>Folio</th><th>Origen</th><th>Destino</th><th>Estatus</th></tr>`;
+
+  data.forEach(v => {
+    html += `<tr>
+      <td>${v.folio}</td>
+      <td>${v.origen}</td>
+      <td>${v.destino}</td>
+      <td>
+          <select onchange="cambiarEstatus(${v.id}, this.value)">
+            <option value="1" ${v.estatus == "Programado" ? 'selected' : ''}>Programado</option>
+            <option value="2" ${v.estatus == "Cargando" ? 'selected' : ''}>Cargando</option>
+            <option value="3" ${v.estatus == "En tránsito" ? 'selected' : ''}>En tránsito</option>
+            <option value="4" ${v.estatus == "En aduana" ? 'selected' : ''}>En aduana</option>
+            <option value="5" ${v.estatus == "Detenido" ? 'selected' : ''}>Detenido</option>
+            <option value="6" ${v.estatus == "Incidencia" ? 'selected' : ''}>Incidencia</option>
+            <option value="7" ${v.estatus == "Entregado" ? 'selected' : ''}>Entregado</option>
+            <option value="8" ${v.estatus == "Cancelado" ? 'selected' : ''}>Cancelado</option>
+          </select>
+        </td>
+    </tr>`;
   });
+
+  html += "</table>";
+
+  panelContenido.innerHTML = html;
 }
+
+async function cambiarEstatus(id, estatus) {
+  const res = await fetch("api/actualizar_estatus.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id, estatus })
+  });
+
+  const json = await res.json();
+
+  if (json.ok) {
+    verViajesAdmin();   // 🔥 recarga la tabla
+  } else {
+    alert("Error al actualizar estatus");
+  }
+}
+
+
+async function verMisViajes() {
+
+  let user = JSON.parse(sessionStorage.getItem("tpp_user"));
+
+  let res = await fetch("api/viajes.php?id=" + user.id);
+  let data = await res.json();
+
+  let html = `<table>
+  <tr><th>Folio</th><th>Origen</th><th>Destino</th><th>Estatus</th></tr>`;
+
+  data.forEach(v => {
+    html += `<tr>
+      <td>${v.folio}</td>
+      <td>${v.origen}</td>
+      <td>${v.destino}</td>
+      <td>${v.estatus}</td>
+    </tr>`;
+  });
+
+  html += "</table>";
+
+  panelContenido.innerHTML = html;
+}
+
+function crearViajeForm() {
+  ocultarTodo();
+  activar("crear-viaje");
+  cargarFormularioViaje();
+}
+function cargarFormularioViaje() {
+  const cont = document.getElementById("crear-viaje");
+
+  cont.innerHTML = `
+    <div class="panel-box">
+      <h2>Crear nuevo viaje</h2>
+
+      <form id="formCrearViaje" class="form-panel">
+
+        <input type="text" id="origen" placeholder="Origen" required>
+        <input type="text" id="destino" placeholder="Destino" required>
+        <input type="text" id="tipo_carga" placeholder="Tipo de carga" required>
+
+        <textarea id="descripcion" placeholder="Descripción"></textarea>
+
+        <input type="datetime-local" id="fecha_salida" required>
+<input type="number" id="cliente_id" placeholder="ID del Cliente" required>
+
+        <button type="submit">Guardar viaje</button>
+      </form>
+    </div>
+  `;
+
+  document.getElementById("formCrearViaje").addEventListener("submit", guardarViaje);
+}
+async function guardarViaje(e) {
+  e.preventDefault();
+
+  const datos = {
+    cliente_id: cliente_id.value,
+    origen: origen.value,
+    destino: destino.value,
+    tipo_carga: tipo_carga.value,
+    descripcion: descripcion.value,
+    fecha_salida: fecha_salida.value
+  };
+
+  const res = await fetch("api/crear_viaje.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(datos)
+  });
+
+  const json = await res.json();
+
+  if (json.ok) {
+    alert("Viaje creado correctamente");
+
+    ocultarTodo();
+    activar("panel");
+    mostrarPanel();
+    cargarViajesAdmin();  // recarga la tabla
+  }
+  else {
+    alert("❌ Error al crear viaje");
+  }
+}
+
+
 
 // Sesión activa
-if (sessionStorage.getItem("tpp_session") === "ok") {
-  mostrarPanel();
+async function verificarSesion() {
+  const res = await fetch("api/session.php");
+  const json = await res.json();
+
+  if (json.ok) {
+    mostrarPanel();
+    verViajesAdmin(); // 🔥 carga directa
+  }
 }
+
+verificarSesion();
+
